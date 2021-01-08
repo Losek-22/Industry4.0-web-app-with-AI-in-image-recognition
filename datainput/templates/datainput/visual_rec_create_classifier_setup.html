@@ -1,0 +1,28 @@
+{% extends "datainput/header.html" %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <br>
+    <label for="number_of_classes" style="margin-left: 10px">Wybierz ilość klas (możliwych wyników klasyfikacji zdjęcia)</label>
+    <select class="form-control" id="number_of_classes" name="number_of_classes" style="margin-left: 10px">
+        <option>Klasyfikator binarny (zero-jedynkowy)</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+      <option>9</option>
+      <option>10</option>
+    </select>
+  </div>
+    <br>
+    <button type="submit" class="btn btn-primary btn-block">Wyślij</button>
+</form>
+
+
+{% endblock %}

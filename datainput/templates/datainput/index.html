@@ -1,32 +1,51 @@
 {% extends "datainput/header.html" %}
 
 {% block content %}
-<form class="contact-form" method="post" action="/add_data_form_submission/">
-    {% csrf_token %}
-  <div class="form-group">
-    <label for="Motor rotations">Obroty silnika</label>
-    <input name="Motor rotations" class="form-control" id="Motor rotations" aria-describedby="rotationsHelp">
-    <small id="rotationsHelp" class="form-text text-muted">Jednostka to obroty na minutę.</small>
+
+{% load static %}
+
+{% if just_logged_in == 1 %}
+<div class="alert alert-success" role="alert">
+  <center> Zalogowano pomyślnie </center>
+</div>
+{% endif %}
+
+<br>
+<center>
+<div class="card" style="width: 18rem;">
+  <img src="{% static 'data-input.jpeg' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Wprowadzanie pomiarów</h5>
+    <p class="card-text">Wybierz maszynę oraz wprowadź zmierzone wartości.</p>
+    <a href="../add_data" class="btn btn-primary">Przejdź do wprowadzania pomiarów</a>
   </div>
-  <div class="form-group">
-    <label for="Temperature1">Temperatura 1</label>
-    <input name="Temperature1" class="form-control" id="Temperature1" aria-describedby="Temperature1Help">
-    <small id="Temperature1Help" class="form-text text-muted">Jednostka to stopnie Celsjusza.</small>
+</div>
+
+  <br>
+
+  <div class="card" style="width: 18rem;">
+  <img src="{% static 'visual-recognition.jpeg' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Visual Recognition</h5>
+    <p class="card-text">Skorzystaj z usług sztucznej inteligencji.</p>
+    <a href="../visual_rec_menu" class="btn btn-primary">Przejdź do Visual Recognition</a>
   </div>
-  <div class="form-group">
-    <label for="Temperature2">Temperatura 2</label>
-    <input name="Temperature2" class="form-control" id="Temperature2" aria-describedby="Temperature2Help">
-    <small id="Temperature2Help" class="form-text text-muted">Jednostka to stopnie Celsjusza.</small>
   </div>
-  <div class="form-group">
-    <label for="Current">Natężenie prądu</label>
-    <input name="Current" class="form-control" id="Current" aria-describedby="CurrentHelp">
-    <small id="CurrentHelp" class="form-text text-muted">Jednostka to ampery.</small>
+    <br>
+
+
+      {% if user.is_superuser %}
+
+      <div class="card" style="width: 18rem;">
+  <img src="{% static 'administrator.jpg' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Panel administratora</h5>
+    <p class="card-text">Zarządzaj użytkownikami i rekordami bazy danych.</p>
+    <a href="../admin" class="btn btn-primary">Przejdź do panelu administratora</a>
   </div>
-   <div class="form-group">
-    <label for="Comment">Komentarz</label>
-    <textarea name="Comment" class="form-control" id="Comment" rows="3" placeholder="(opcjonalnie)"></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Zatwierdź</button>
-</form>
+      </div>
+  </center>
+
+      {% endif %}
+
 {% endblock%}

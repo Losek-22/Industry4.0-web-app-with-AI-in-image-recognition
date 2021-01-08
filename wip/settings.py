@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +27,7 @@ SECRET_KEY = '#s1hfc0#e-z^^=l%h8^yebew7#r(8=^e!p_(!!q@n-+8yc-70^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -119,6 +121,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "__shared__"),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures')
+
+MEDIA_URL = '/pictures/'
+
+LOGIN_URL = '/login/'
+
+TEMPLATE_DIRS = ['datainput/templates/datainput']

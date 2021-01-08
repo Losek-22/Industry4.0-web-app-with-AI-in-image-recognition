@@ -18,5 +18,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^add_data$', views.adddata, name='add_data'),
+    url(r'^add_data$', views.add_data, name='add_data'),
+    url(r'^login$', views.userlogin, name="login"),
 ]

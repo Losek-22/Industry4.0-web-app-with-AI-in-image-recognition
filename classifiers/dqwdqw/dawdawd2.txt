@@ -1,0 +1,4 @@
+class_name->dawdawd2
+short_description->dawdaw2
+long_description->wadwd2
+more_info_link->dawd2d

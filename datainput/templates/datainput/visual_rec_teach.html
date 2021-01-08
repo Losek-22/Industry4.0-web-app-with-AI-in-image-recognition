@@ -1,0 +1,39 @@
+{% extends "datainput/header.html" %}
+
+{% block content %}
+
+    <div class="alert alert-primary" role="alert">
+     <center> Zrób zdjęcie oraz określ co na nim się znajduje. </center>
+    </div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="file" name="document" class="btn btn-primary" style="margin-left:0.5em">
+    <br>
+    <div class="form-group">
+        <br>
+    <label for="class" style="margin-left: 10px">Co znajduje się na zdjęciu?</label>
+    <select class="form-control" id="class" name="class" style="margin-left: 10px">
+        {% for class in classes_list %}
+
+            {% if dict_item.status == 'ready' %}
+                <option>{{ dict_item.name }}</option>
+            {% else %}
+                <option disabled>{{ dict_item.name }} (Podczas treningu)</option>
+
+            {% endif %}
+
+        {% endfor %}
+    </select>
+  </div>
+    <br>
+    <button type="submit" class="btn btn-primary btn-block">Wyślij</button>
+</form>
+
+
+
+
+
+
+{% endblock %}

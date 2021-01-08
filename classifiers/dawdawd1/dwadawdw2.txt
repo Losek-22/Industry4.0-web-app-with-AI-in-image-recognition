@@ -1,0 +1,4 @@
+class_name->dwadawdw2
+short_description->wad
+long_description->
+more_info_link->

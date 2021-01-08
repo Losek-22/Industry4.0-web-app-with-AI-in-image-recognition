@@ -1,0 +1,73 @@
+{% extends "datainput/header.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<br>
+
+{% if final_data %}
+
+    <center><img src="../pictures/classified_images/{{ picture_name }}"
+               width="340"></center>
+
+    <br>
+    {% for result in final_data %}
+
+        <div class="jumbotron">
+          <h1 class="display-4"> {{ result.class_name }}</h1>
+          <p class="lead">{{ result.short_description }}</p>
+          <hr class="my-4">
+          <p>{{ result.long_description }}</p>
+
+          {% if result.more_info_link %}
+          <a class="btn btn-primary btn-lg" href="{{ result.more_info_link }}" role="button">Więcej informacji</a>
+          {% endif %}
+
+        </div>
+
+    {% endfor %}
+{% endif %}
+
+
+{% if no_dir %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Klasyfikator nie został znaleziony na serwerze.</h5>
+    <p class="card-text">Na serwerze brakuje plików. Może to być spowodowane manualnym usunięciem bądź błędem podczas tworzenia klasyfiatora.</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% if no_pic_chosen %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Proszę zrobić zdjęcie.</h5>
+    <p class="card-text">Nie zapewniono zdjęcia do analizy.</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% if unknown_error %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Wystąpił nieznany błąd.</h5>
+    <p class="card-text">Jeżeli błąd się powtarza, skontaktuj się z administracją.</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% if wrong_extension %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Nieprawidłowe rozszerzenie pliku.</h5>
+    <p class="card-text">Proszę przesłac zdjęcie o rozszerzeniu .jpg, .jpeg lub .png</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% endblock %}

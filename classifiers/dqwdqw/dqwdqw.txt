@@ -1,0 +1,4 @@
+class_name->dqwdqw
+short_description->dwqd
+long_description->dwqdq
+more_info_link->dqwdqw

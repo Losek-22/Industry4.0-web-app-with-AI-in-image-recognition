@@ -1,0 +1,99 @@
+{% extends "datainput/header.html" %}
+
+{% load static %}
+
+{% block content %}
+    <div class="alert alert-primary" role="alert">
+      <center> Zrób zdjęcie za pomocą panelu niżej. </center>
+    </div>
+
+{% if api_error == 0 %}
+{% if unknown_error == 0 %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <br>
+            <center><input type="file" name="document" class="btn btn-primary" style="margin-left:0.5em"></center>
+
+        <br>
+            <div class="alert alert-primary" role="alert">
+      <center> Wybierz klasyfikator z którego chcesz skorzystać. </center>
+    </div>
+
+    <label for="class" style="margin-left: 10px">Lista dostępnych klasyfikatorów:</label>
+    <select class="form-control" id="class" name="classifier" style="margin-left: 10px">
+
+        {% for dict_item in classifiers_dict %}
+
+            {% if dict_item.status == 'ready' %}
+                <option>{{ dict_item.name }}</option>
+            {% else %}
+                <option disabled>{{ dict_item.name }} (Podczas treningu)</option>
+
+            {% endif %}
+
+        {% endfor %}
+
+
+    </select>
+  </div>
+    <br>
+    <button type="submit" class="btn btn-primary btn-block">Sprawdź zdjęcie</button>
+</form>
+{% endif %}
+{% endif %}
+
+
+{% if api_error == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Wystąpił błąd po stronie IBM Cloud.</h5>
+    <p class="card-text">Nie popełniłeś żadnego błędu.
+    <br>
+    {{ classifiers_dict }}</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% if no_pic_chosen == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Nie wybrano zdjęcia.</h5>
+    <p class="card-text">Zrób zdjęcie za pomocą panelu na górze strony.
+  </div>
+    </div></center>
+{% endif %}
+
+{% if wrong_extension == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Przesłany plik nie jest plikiem .jpg, .jpeg lub .png</h5>
+    <p class="card-text">Upewnij się, że przesyłasz zdjęcie.
+  </div>
+    </div></center>
+{% endif %}
+
+{% if no_dir == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Szukana ścieżka do klasyfikatora nie istnieje.</h5>
+    <p class="card-text">Coś poszło nie tak w momencie tworzenia klasyfikatora.
+  </div>
+    </div></center>
+{% endif %}
+
+{% if unknown_error == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Wystąpił nieznany błąd.</h5>
+    <p class="card-text">Jeżeli błąd się powtarza, skontaktuj się z administracją.</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% endblock %}

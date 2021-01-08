@@ -1,0 +1,119 @@
+{% extends "datainput/header.html" %}
+
+{% block content %}
+
+
+<div class="jumbotron">
+  <h1 class="display-4">Tworzenie klasyfikatora</h1>
+  <p class="lead">Aby pomyślnie utworzyć klasyfikator, zastosuj się do poniższych zaleceń.</p>
+  <hr class="my-4">
+  <ul class="list-group">
+  <li class="list-group-item">Nazwy klas nie powinny przekraczać 15 znaków każda</li>
+  <li class="list-group-item">Nazwy klas nie mogą zawierać znaków specjalnych & * { } \ | / ' " ` [ ]</li>
+      <li class="list-group-item">Nazwy klas nie mogą zawierać polskich znaków</li>
+  <li class="list-group-item">Każda z klas posiada dane do trenowania w swoim, oddzielnym pliku .zip</li>
+  <li class="list-group-item">Dane do trenowania algorytmu powinny być w oddzielnych plikach o rozszerzeniu .zip</li>
+  <li class="list-group-item">Maksymalny rozmiar pliku .zip to 100 Mb</li>
+  <li class="list-group-item">Maksymalna ilość obrazów to 10000 na plik .zip</li>
+  <li class="list-group-item">Każda z klas (każdy z plików .zip) MUSI zawierać minimum 10 obrazów</li>
+</ul>
+</div>
+
+    <br>
+
+    <div class="alert alert-info" role="alert">
+        <center>Poniżej znajduje się wzór wyniku klasyfikacji, pomocny w tworzeniu nowych klas poniżej.</center>
+</div>
+
+<div class="jumbotron">
+<h1 class="display-4">Nazwa klasy</h1>
+<p class="lead">Krótki opis</p>
+<hr class="my-4">
+<p>Długi tekst</p>
+<a class="btn btn-primary btn-lg" role="button">Link "Więcej informacji"</a>
+</div>
+
+<div class="alert alert-info" role="alert">
+    <center>Możesz teraz przystąpić do tworzenia klas, jednak napierw wybierz ogólną nazwę nowego klasyfikatora.</center>
+</div>
+<br>
+
+<form method="post" action="/visual_rec_create_classifier_setup2/" enctype="multipart/form-data">
+        {% csrf_token %}
+
+  <div class="form-group row">
+    <label for="classifier_name" class="col-sm-2 col-form-label" style="margin-left:0.5em">Nazwa klasyfikatora</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="classifier_name" name="classifier_name" style="margin-left:0.5em">
+    </div>
+  </div>
+
+    {% for i in list_of_classes %}
+    <div class="alert alert-primary" role="alert">
+        {% if binary == 1 %}
+  Klasa pozytywna- przykłady wyniku pozytywnego (logiczne 1)
+        {% else %}
+  Klasa numer {{ i }}:
+        {% endif %}
+</div>
+
+  <div class="form-group row">
+    <label for="class_name_{{ i }}" class="col-sm-2 col-form-label" style="margin-left:0.5em">Nazwa klasy</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="class_name_{{ i }}" name="class_name_{{ i }}" style="margin-left:0.5em">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="short_description_{{ i }}" class="col-sm-2 col-form-label" style="margin-left:0.5em">Krótki opis</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="short_description_{{ i }}" name="short_description_{{ i }}" style="margin-left:0.5em">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="long_description_{{ i }}" style="margin-left:0.5em">Długi tekst</label>
+    <textarea class="form-control" id="long_description_{{ i }}" name="long_description_{{ i }}" rows="3" style="margin-left:0.5em"></textarea>
+  </div>
+      <div class="form-group row">
+    <label for="more_info_link_{{ i }}" class="col-sm-2 col-form-label" style="margin-left:0.5em">Link</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="more_info_link_{{ i }}" name="more_info_link_{{ i }}" style="margin-left:0.5em">
+    </div>
+  </div>
+    <div class="alert alert-dark" role="alert">
+  <center>Ważne! Dołącz plik .zip z przykładami klasy zgodny z ograniczeniami wymienionymi na górze strony.</center>
+</div>
+        <center><input type="file" name="training_set_{{ i }}" class="btn btn-primary" style="margin-left:0.5em"></center>
+    <br>
+    <br>
+ {% endfor %}
+    <div class="alert alert-warning" role="alert">
+            {% if binary == 1 %}
+                <center>Prześlij zdjęcia, które mają być przykładami negatywnymi (logiczne 0)
+            <span class="badge badge-secondary">WYMAGANE</span></center>
+            {% else %}
+                <center>Prześlij zdjęcia, które mają nie należeć do żadnej z powyższych klas.
+            <span class="badge badge-secondary">REKOMENDOWANE</span></center>
+            {% endif %}
+</div>
+        <center><input type="file" name="negative_class" class="btn btn-primary" style="margin-left:0.5em"></center>
+    <br>
+        <div class="alert alert-dark" role="alert">
+  <center>Ważne! Dołącz plik .zip z przykładami klasy zgodny z ograniczeniami wymienionymi na górze strony.</center>
+</div>
+    <br>
+
+    <div class="alert alert-danger" role="alert">
+        <center>Przed zatwierdzeniem upewnij się, że formularz wypełniony jest bezbłędnie.</center>
+</div>
+
+    <br>
+
+      <div class="form-group row">
+    <div class="col-sm-10">
+      <center><button type="submit" class="btn btn-primary" style="margin-left:0.5em">Zatwierdź</button></center>
+    </div>
+  </div>
+</form>
+
+
+{% endblock %}

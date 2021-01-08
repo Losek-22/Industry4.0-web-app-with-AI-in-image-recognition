@@ -1,0 +1,64 @@
+{% extends "datainput/header.html" %}
+
+{% block content %}
+
+{% load static %}
+<br>
+{% if api_error == 0 %}
+{% if response %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'success.jpg' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Nowy klasyfikator został stworzony pomyślnie.</h5>
+    Szczegóły:
+    <br>
+    <p class="card-text">{{ response }}</p>
+  </div>
+    </div></center>
+{% endif %}
+{% endif %}
+
+{% if api_error == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Wystąpił błąd po stronie IBM Cloud.</h5>
+    <p class="card-text">Nie popełniłeś żadnego błędu.
+    <br>
+    {{ response }}</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% if unknown_error == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Wystąpił nieznany błąd.</h5>
+    <p class="card-text">Jeżeli błąd się powtarza, skontaktuj się z administracją.</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% if files_not_zip == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Załączone pliki nie są o rozszerzeniu .zip</h5>
+    <p class="card-text">Upewnij się, że archiwa w których przechowujesz dane przekazywane do trenowania algorytmu mają rozszerzenie .zip</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% if classifier_name_taken == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Klasyfikator o tej nazwie już istnieje.</h5>
+     <p class="card-text">Wybierz inną nazwę dla nowego klasyfikatora.</p>
+  </div>
+    </div></center>
+{% endif %}
+<br>
+<center><a href="../visual_rec_menu/" class="btn btn-primary btn-lg active btn-block" role="button" aria-pressed="true">Wróć do menu</a></center>
+{% endblock %}

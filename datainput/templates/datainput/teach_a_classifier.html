@@ -1,0 +1,58 @@
+{% extends "datainput/header.html" %}
+
+{% load static %}
+
+{% block content %}
+
+{% if api_error == 0 %}
+    {% if unknown_error == 0 %}
+        <form method="post" action="/visual_rec_teach/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                    <div class="alert alert-primary" role="alert">
+              <center> Wybierz klasyfikator który chcesz wzmocnić. </center>
+            </div>
+
+            <label for="class" style="margin-left: 10px">Lista dostępnych klasyfikatorów:</label>
+            <select class="form-control" id="class" name="classifier" style="margin-left: 10px">
+
+                {% for dict_item in classifiers_dict %}
+                        {% if dict_item.status == 'ready' %}
+                            <option>{{ dict_item.name }}</option>
+                        {% else %}
+                            <option disabled>{{ dict_item.name }} (Podczas treningu)</option>
+                        {% endif %}
+                {% endfor %}
+            </select>
+
+          </div>
+            <br>
+            <button type="submit" class="btn btn-primary btn-block">Przejdź dalej</button>
+        </form>
+    {% endif %}
+{% endif %}
+
+
+{% if api_error == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Wystąpił błąd po stronie IBM Cloud.</h5>
+    <p class="card-text">Nie popełniłeś żadnego błędu.
+    <br>
+    {{ classifiers_dict }}</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% if unknown_error == 1 %}
+    <center><div class="card" style="width: 18rem;">
+  <img src="{% static 'failure.png' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Wystąpił nieznany błąd.</h5>
+    <p class="card-text">Jeżeli błąd się powtarza, skontaktuj się z administracją.</p>
+  </div>
+    </div></center>
+{% endif %}
+
+{% endblock %}

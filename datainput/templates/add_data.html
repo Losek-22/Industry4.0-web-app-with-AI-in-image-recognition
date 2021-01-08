@@ -1,0 +1,36 @@
+{% extends "datainput/header.html" %}
+
+{% block content %}
+<form class="contact-form" method="post" action="/add_data_form_submission/">
+    {% csrf_token %}
+  <div class="form-group">
+    <label for="Motor rotations" style="margin-left:0.5em">Obroty silnika</label>
+    <input name="Motor rotations" class="form-control" id="Motor rotations" aria-describedby="rotationsHelp" style="margin-left:0.5em"
+           placeholder="Maksymalnie XXXXX.XX">
+    <small id="rotationsHelp" class="form-text text-muted" style="margin-left:0.5em">Jednostka to obroty na minutę.</small>
+  </div>
+  <div class="form-group">
+    <label for="Temperature1" style="margin-left:0.5em">Temperatura 1</label>
+    <input name="Temperature1" class="form-control" id="Temperature1" aria-describedby="Temperature1Help" style="margin-left:0.5em"
+           placeholder="Maksymalnie XXX.XX">
+    <small id="Temperature1Help" class="form-text text-muted" style="margin-left:0.5em">Jednostka to stopnie Celsjusza.</small>
+  </div>
+  <div class="form-group">
+    <label for="Temperature2" style="margin-left:0.5em">Temperatura 2</label>
+    <input name="Temperature2" class="form-control" id="Temperature2" aria-describedby="Temperature2Help" style="margin-left:0.5em"
+           placeholder="Maksymalnie XXX.XX">
+    <small id="Temperature2Help" class="form-text text-muted" style="margin-left:0.5em">Jednostka to stopnie Celsjusza.</small>
+  </div>
+  <div class="form-group">
+    <label for="Current" style="margin-left:0.5em">Natężenie prądu</label>
+    <input name="Current" class="form-control" id="Current" aria-describedby="CurrentHelp" style="margin-left:0.5em"
+           placeholder="Maksymalnie XXXX.XXX">
+    <small id="CurrentHelp" class="form-text text-muted" style="margin-left:0.5em">Jednostka to ampery.</small>
+  </div>
+   <div class="form-group">
+    <label for="Comment" style="margin-left:0.5em">Komentarz</label>
+    <textarea name="Comment" class="form-control" id="Comment" rows="3" placeholder="(opcjonalnie)" style="margin-left:0.5em"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary" style="margin-left:0.5em">Zatwierdź</button>
+</form>
+{% endblock%}

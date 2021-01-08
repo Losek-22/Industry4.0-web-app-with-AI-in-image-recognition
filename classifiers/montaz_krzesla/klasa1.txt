@@ -1,0 +1,4 @@
+class_name->klasa1
+short_description->opis1
+long_description->tekst1
+more_info_link->link1

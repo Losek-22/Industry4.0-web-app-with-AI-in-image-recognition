@@ -1,0 +1,50 @@
+{% extends "datainput/header.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<br>
+<center>
+
+
+  <br>
+
+  <div class="card" style="width: 18rem;">
+  <img src="{% static 'visual-recognition.jpeg' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Prześlij zdjęcie do analizy</h5>
+    <p class="card-text">Zrób zdjęcie i otrzymaj wynik klasyfikacji.</p>
+    <a href="../visual_rec_choose_classifier" class="btn btn-primary">Przejdź do Visual Recognition</a>
+  </div>
+  </div>
+
+  <br>
+
+    <div class="card" style="width: 18rem;">
+  <img src="{% static 'visual-recognition2.jpg' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Naucz sieć neuronową</h5>
+    <p class="card-text">Naucz model sztucznej inteligencji.</p>
+    <a href="../teach_a_classifier" class="btn btn-primary">Przejdź do uczenia modelu Visual Recognition</a>
+  </div>
+    </div>
+
+  <br>
+
+    {% if user.is_superuser %}
+
+    <div class="card" style="width: 18rem;">
+  <img src="{% static 'visual-recognition3.jpeg' %} " class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Stwórz nowy klasyfikator</h5>
+    <p class="card-text">Wprowadź nowe rozwiązania.</p>
+    <a href="../visual_rec_create_classifier_setup" class="btn btn-primary">Przejdź do tworzenia modelu Visual Recognition</a>
+  </div>
+    </div>
+
+    {% endif %}
+
+
+
+{% endblock%}

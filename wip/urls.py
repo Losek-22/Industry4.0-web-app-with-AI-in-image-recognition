@@ -16,10 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from datainput import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('datainput.urls')),
     url(r'^add_data_form_submission/$', views.add_data_form_submission, name='add_data_form_submission'),
-    url(r'^thank_you/', include('datainput.urls'))
+    url(r'^login_attempt/$', views.login_attempt),
+    url(r'^add_data/$', views.add_data),
+    url(r'^logout/$', views.userlogout),
+    url(r'^teach_a_classifier/$', views.which_classifier_to_teach),
+    url(r'^visual_rec_teach/$', views.visual_rec_teach),
+    url(r'^visual_rec_menu/$', views.visual_rec_menu),
+    url(r'^visual_rec_create_classifier_setup/$', views.visual_rec_create_classifier),
+    url(r'^visual_rec_create_classifier_setup2/$', views.visual_rec_create_classifier2),
+    url(r'^visual_rec_choose_classifier/$', views.choose_classifier),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

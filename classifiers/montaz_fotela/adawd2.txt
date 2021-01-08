@@ -1,0 +1,4 @@
+class_name->adawd2
+short_description->wadawd2
+long_description->wdawd2
+more_info_link->wadwd2
