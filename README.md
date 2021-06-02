@@ -7,6 +7,7 @@ Main technologies used:
 Python Django
 IBM Cloud API
 SQLite
+Bootstrap
 
 The site uses user accounts, and requires a login:
 
